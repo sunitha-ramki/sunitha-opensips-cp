@@ -26,10 +26,10 @@ RUN service apache2 restart
 COPY 000-default.conf /etc/apache2/sites-avaialble/.
 
 RUN wget https://github.com/OpenSIPS/opensips-cp/archive/8.3.2.zip -O /var/www/html/opensips-cp.zip
-RUN unzip /var/www/html/opensips-cp.zip
+RUN unzip /var/www/html/opensips-cp.zip -d /var/www/html
 RUN mv /var/www/html/opensips-cp-8.3.2/ /var/www/html/opensips-cp/
 RUN chown -R www-data:www-data /var/www/html/opensips-cp/
-RUN mysql -Dopensips -uopensips -popensipsrw < /var/www/html/opensips-cp/config/db_schema.mysql
+RUN mysql -h 192.168.0.103 -P 3306 -Dopensips -uopensips -popensipsrw < /var/www/html/opensips-cp/config/db_schema.mysql
 
 
 COPY db.inc.php /var/www/html/opensips-cp/config/.
